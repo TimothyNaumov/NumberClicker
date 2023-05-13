@@ -23,14 +23,32 @@ function listIsSorted(array: number[]) {
   return true;
 }
 
+function checkGameOver(array: number[]) {
+  for (let i = 0; i < array.length; i++) {
+    if (typeof array[i] === "undefined") {
+      return false;
+    }
+  }
+  return true;
+}
+
 function App() {
   const [randomNumber, setRandomNumber] = React.useState(
     randomNumberInRange(1, 100)
   );
+  const [usedRandomNumbers, setUsedRandomNumbers] = React.useState([
+    randomNumber,
+  ]);
   const [sortedList, setSortedList] = React.useState(Array(10).fill(undefined));
 
   const createNewRandomNumber = () => {
-    setRandomNumber(randomNumberInRange(1, 100));
+    let newRandomNumber = randomNumberInRange(1, 100);
+    //keep generating new random numbers until we get one that hasn't been used yet
+    while (usedRandomNumbers.includes(newRandomNumber)) {
+      newRandomNumber = randomNumberInRange(1, 100);
+    }
+    setRandomNumber(newRandomNumber);
+    setUsedRandomNumbers([...usedRandomNumbers, newRandomNumber]);
   };
 
   const handlePlay = (i: number) => {
@@ -38,11 +56,14 @@ function App() {
     newList[i] = randomNumber;
 
     if (!listIsSorted(newList)) {
-      // enqueueSnackbar("You can't put that there!", {
-      //   variant: "error",
-      // });
       console.log("You can't do that!");
       return;
+    }
+
+    if (checkGameOver(newList)) {
+      enqueueSnackbar("You win!", {
+        variant: "success",
+      });
     }
 
     //new list with updated button is acceptable
@@ -70,7 +91,7 @@ function App() {
             onPlay={handlePlay}
           />
         </Grid>
-        <Grid item>
+        {/* <Grid item>
           <Button
             onClick={() =>
               enqueueSnackbar("You can't put that there!", {
@@ -80,7 +101,7 @@ function App() {
           >
             Click Me!
           </Button>
-        </Grid>
+        </Grid> */}
       </Grid>
     </>
   );
