@@ -1,28 +1,30 @@
 import { Grid, Button } from "@mui/material";
 
-const ButtonField = ({ sortedList, onPlay }: any) => {
-  console.log(sortedList);
-  //{pressed ? "secondary" : "primary"}
+const ButtonField = ({ gameState }: any) => {
   return (
     <Grid container spacing={2} justifyContent="center">
-      {sortedList.map((value: any, index: number) => {
+      {gameState.sortedList.map((value: any, index: number) => {
         const pressed = value !== undefined;
+        const disabled = gameState.disabledList[index] || pressed;
+        const backgroundColor = gameState.disabledList[index]
+          ? "#ba4343"
+          : "#8fe88e";
         return (
           <Grid item key={index}>
             <Button
-              disabled={pressed}
+              disabled={disabled}
               variant="contained"
-              color="primary"
+              color={gameState.disabledList[index] ? "error" : "primary"}
               sx={{
                 "&.Mui-disabled": {
-                  background: "#8fe88e",
+                  background: backgroundColor,
                   color: "rgba(0, 0, 0, 0.6)",
                 },
               }}
               style={{ height: "50px" }}
-              onClick={() => onPlay(index)}
+              onClick={() => gameState.spaceSelected(index)}
             >
-              {value}
+              {gameState.sortedList[index]}
             </Button>
           </Grid>
         );
