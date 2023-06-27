@@ -5,7 +5,7 @@ export function randomNumberInRange(min: number, max: number) {
 
 export function getNewRandomNumber(previousRandomNumbers: number[]) {
   let newRandomNumber = randomNumberInRange(1, 100);
-  while (newRandomNumber in previousRandomNumbers) {
+  while (previousRandomNumbers.includes(newRandomNumber)) {
     newRandomNumber = randomNumberInRange(1, 100);
   }
   return newRandomNumber;
