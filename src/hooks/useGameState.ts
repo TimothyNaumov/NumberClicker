@@ -1,6 +1,7 @@
 import React from "react";
 import gameStateReducer, {
   initialState,
+  RESET_GAME,
   SPACE_SELECTED,
 } from "../reducer/game-state.reducer";
 
@@ -11,5 +12,9 @@ export const useGameState = () => {
     dispatch({ type: SPACE_SELECTED, payload: { spaceIndex } });
   };
 
-  return { spaceSelected, ...state };
+  const resetGame = () => {
+    dispatch({ type: RESET_GAME });
+  };
+
+  return { spaceSelected, resetGame, ...state };
 };

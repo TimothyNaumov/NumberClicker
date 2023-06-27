@@ -3,6 +3,14 @@ export function randomNumberInRange(min: number, max: number) {
   return Math.floor(Math.random() * (max - min + 1)) + min;
 }
 
+export function getNewRandomNumber(previousRandomNumbers: number[]) {
+  let newRandomNumber = randomNumberInRange(1, 100);
+  while (newRandomNumber in previousRandomNumbers) {
+    newRandomNumber = randomNumberInRange(1, 100);
+  }
+  return newRandomNumber;
+}
+
 export function getLeftNumber(arr: any, index: number) {
   for (let i = index - 1; i >= 0; i--) {
     if (typeof arr[i] === "number") {
@@ -40,4 +48,27 @@ export function setDisabledList(
       }
     }
   });
+}
+
+export function playerWon(array: number[]) {
+  for (let i = 0; i < array.length; i++) {
+    if (typeof array[i] === "undefined") {
+      return false;
+    }
+  }
+  return true;
+}
+
+export function playerLost(sortedList: number[], randomNumber: number) {
+  for (let i = 0; i < sortedList.length; i++) {
+    if (sortedList[i] === undefined) {
+      if (
+        getLeftNumber(sortedList, i) < randomNumber &&
+        getRightNumber(sortedList, i) > randomNumber
+      ) {
+        return false;
+      }
+    }
+  }
+  return true;
 }

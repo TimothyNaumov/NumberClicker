@@ -1,30 +1,7 @@
 import "./App.css";
 import ButtonField from "./features/ButtonField";
-import { Grid, Typography } from "@mui/material";
+import { Button, Grid, Typography } from "@mui/material";
 import { useGameState } from "./hooks/useGameState";
-
-// function listIsSorted(array: number[]) {
-//   // 👇️ check if array is sorted in ascending order
-//   let prevValue = null;
-//   for (let i = 0; i < array.length; i++) {
-//     if (typeof array[i] !== "undefined") {
-//       if (prevValue !== null && array[i] < prevValue) {
-//         return false;
-//       }
-//       prevValue = array[i];
-//     }
-//   }
-//   return true;
-// }
-
-// function checkGameOver(array: number[]) {
-//   for (let i = 0; i < array.length; i++) {
-//     if (typeof array[i] === "undefined") {
-//       return false;
-//     }
-//   }
-//   return true;
-// }
 
 function App() {
   const gameState = useGameState();
@@ -43,6 +20,18 @@ function App() {
         </Grid>
         <Grid item>
           <ButtonField gameState={gameState} />
+        </Grid>
+        <Grid item>
+          {gameState.endGameState === "WON" ||
+            (gameState.endGameState === "LOSE" && (
+              <Button
+                color="primary"
+                variant="contained"
+                onClick={gameState.resetGame}
+              >
+                Play Again
+              </Button>
+            ))}
         </Grid>
       </Grid>
     </>
