@@ -11,9 +11,10 @@ function App() {
       <Grid
         container
         direction="column"
-        justifyContent="center"
+        justifyContent="flex-start"
         alignItems="center"
         spacing={4}
+        minHeight="300px"
       >
         <Grid item>
           <Typography variant="h1">{gameState.randomNumber}</Typography>
