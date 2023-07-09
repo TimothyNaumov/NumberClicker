@@ -1,7 +1,7 @@
 import { Typography } from "@mui/material";
 
 export const NumberBox = ({ gameState }: any) => {
-  if (gameState.endGameState === "WON") {
+  if (gameState.endGameState === "WIN") {
     return (
       <Typography variant="h1" color="success">
         You Won!

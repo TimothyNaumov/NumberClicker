@@ -1,6 +1,6 @@
 import "./App.css";
 import ButtonField from "./features/ButtonField";
-import { Grid, Typography } from "@mui/material";
+import { Grid } from "@mui/material";
 import { useGameState } from "./hooks/useGameState";
 import ResetButton from "./features/ResetButton";
 import NumberBox from "./features/NumberBox";

@@ -30,9 +30,7 @@ const gameStateReducer = (state = initialState, action: any) => {
 
       if (playerWon(state.sortedList)) {
         state.endGameState = "WIN";
-      }
-
-      if (playerLost(state.sortedList, state.randomNumber)) {
+      } else if (playerLost(state.sortedList, state.randomNumber)) {
         state.endGameState = "LOSE";
       }
 
