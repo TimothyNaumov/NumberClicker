@@ -12,7 +12,7 @@ export const ResetButton = ({ gameState }: any) => {
 
   return (
     <IconButton onClick={gameState.resetGame}>
-      <ReplayIcon color="primary" />
+      <ReplayIcon color="inherit" />
     </IconButton>
   );
 };
