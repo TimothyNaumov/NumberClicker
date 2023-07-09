@@ -36,18 +36,20 @@ export function setDisabledList(
   disabledList: boolean[],
   randomNumber: number
 ) {
+  const nextDisabledList = [...disabledList];
   sortedList.map((number: number, index: number) => {
     if (number === undefined) {
       if (
         getLeftNumber(sortedList, index) < randomNumber &&
         getRightNumber(sortedList, index) > randomNumber
       ) {
-        disabledList[index] = false;
+        nextDisabledList[index] = false;
       } else {
-        disabledList[index] = true;
+        nextDisabledList[index] = true;
       }
     }
   });
+  return nextDisabledList;
 }
 
 export function playerWon(array: number[]) {
