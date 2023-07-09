@@ -3,8 +3,9 @@ import App from "./App.tsx";
 import "./index.css";
 import { ThemeProvider, createTheme } from "@mui/material";
 
-const theme = createTheme({
+const lightTheme = createTheme({
   palette: {
+    mode: "light",
     primary: {
       main: "#addfff",
     },
@@ -14,8 +15,22 @@ const theme = createTheme({
   },
 });
 
+const darkTheme = createTheme({
+  palette: {
+    mode: "dark",
+    primary: {
+      main: "#cfcfcf",
+    },
+    secondary: {
+      main: "#addfff",
+    },
+  },
+});
+
+const prefersDark = window.matchMedia("(prefers-color-scheme: dark)").matches;
+
 ReactDOM.createRoot(document.getElementById("root") as HTMLElement).render(
-  <ThemeProvider theme={theme}>
+  <ThemeProvider theme={prefersDark ? darkTheme : lightTheme}>
     <App />
   </ThemeProvider>
 );
