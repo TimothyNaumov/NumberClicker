@@ -22,10 +22,15 @@ export const initialState = {
 const gameStateReducer = (state = initialState, action: any) => {
   switch (action.type) {
     case SPACE_SELECTED: {
+      //TODO: change state to be immutable
       const spaceIndex = action.payload.spaceIndex;
 
       state.sortedList[spaceIndex] = state.randomNumber;
+      //const nextSortedList = [...state.sortedList];
+      //nextSortedList[spaceIndex] = state.randomNumber;
+
       state.randomNumber = getNewRandomNumber(state.usedRandomNumbers);
+      //const nextRandomNumber = getNewRandomNumber(state.usedRandomNumbers);
       state.usedRandomNumbers.push(state.randomNumber);
 
       if (playerWon(state.sortedList)) {
@@ -38,6 +43,8 @@ const gameStateReducer = (state = initialState, action: any) => {
 
       return {
         ...state,
+        //nextSortedList: nextSortedList,
+        //usedRandomNumbers: [...state.usedRandomNumbers, nextRandomNumber],
       };
     }
 
