@@ -1,7 +1,9 @@
 import "./App.css";
 import ButtonField from "./features/ButtonField";
-import { Button, Grid, Typography } from "@mui/material";
+import { Grid } from "@mui/material";
 import { useGameState } from "./hooks/useGameState";
+import ResetButton from "./features/ResetButton";
+import NumberBox from "./features/NumberBox";
 
 function App() {
   const gameState = useGameState();
@@ -17,22 +19,13 @@ function App() {
         minHeight="300px"
       >
         <Grid item>
-          <Typography variant="h1">{gameState.randomNumber}</Typography>
+          <NumberBox gameState={gameState} />
         </Grid>
         <Grid item>
           <ButtonField gameState={gameState} />
         </Grid>
         <Grid item>
-          {gameState.endGameState === "WON" ||
-            (gameState.endGameState === "LOSE" && (
-              <Button
-                color="primary"
-                variant="contained"
-                onClick={gameState.resetGame}
-              >
-                Play Again
-              </Button>
-            ))}
+          <ResetButton gameState={gameState} />
         </Grid>
       </Grid>
     </>
