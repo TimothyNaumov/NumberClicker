@@ -14,23 +14,6 @@ const theme = createTheme({
   },
 });
 
-<<<<<<< Updated upstream
-=======
-const darkTheme = createTheme({
-  palette: {
-    mode: "dark",
-    primary: {
-      main: "#addfff",
-    },
-    secondary: {
-      main: "#addfff",
-    },
-  },
-});
-
-const prefersDark = window.matchMedia("(prefers-color-scheme: dark)").matches;
-
->>>>>>> Stashed changes
 ReactDOM.createRoot(document.getElementById("root") as HTMLElement).render(
   <ThemeProvider theme={theme}>
     <App />
