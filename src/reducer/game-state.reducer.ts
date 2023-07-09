@@ -22,22 +22,38 @@ export const initialState = {
 const gameStateReducer = (state = initialState, action: any) => {
   switch (action.type) {
     case SPACE_SELECTED: {
+      //TODO: change state to be immutable
       const spaceIndex = action.payload.spaceIndex;
 
-      state.sortedList[spaceIndex] = state.randomNumber;
-      state.randomNumber = getNewRandomNumber(state.usedRandomNumbers);
-      state.usedRandomNumbers.push(state.randomNumber);
+      //state.sortedList[spaceIndex] = state.randomNumber;
+      const nextSortedList = [...state.sortedList];
+      nextSortedList[spaceIndex] = state.randomNumber;
 
-      if (playerWon(state.sortedList)) {
-        state.endGameState = "WIN";
-      } else if (playerLost(state.sortedList, state.randomNumber)) {
-        state.endGameState = "LOSE";
+      //state.randomNumber = getNewRandomNumber(state.usedRandomNumbers);
+      const nextRandomNumber = getNewRandomNumber(state.usedRandomNumbers);
+      //state.usedRandomNumbers.push(state.randomNumber);
+
+      let nextEndGameState = "INPROGRESS";
+      if (playerWon(nextSortedList)) {
+        nextEndGameState = "WIN";
+      } else if (playerLost(nextSortedList, nextRandomNumber)) {
+        nextEndGameState = "LOSE";
       }
 
-      setDisabledList(state.sortedList, state.disabledList, state.randomNumber);
+      //setDisabledList(state.sortedList, state.disabledList, state.randomNumber);
+      const nextDisabledList = setDisabledList(
+        nextSortedList,
+        state.disabledList,
+        nextRandomNumber
+      );
 
       return {
         ...state,
+        sortedList: nextSortedList,
+        randomNumber: nextRandomNumber,
+        usedRandomNumbers: [...state.usedRandomNumbers, nextRandomNumber],
+        endGameState: nextEndGameState,
+        disabledList: nextDisabledList,
       };
     }
 

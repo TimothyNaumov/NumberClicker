@@ -10,10 +10,9 @@ export const ResetButton = ({ gameState }: any) => {
     );
   }
 
-  const darkThemeMq = window.matchMedia("(prefers-color-scheme: dark)");
   return (
     <IconButton onClick={gameState.resetGame}>
-      {darkThemeMq.matches ? <ReplayIcon color="primary" /> : <ReplayIcon />}
+      <ReplayIcon color="primary" />
     </IconButton>
   );
 };
