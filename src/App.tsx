@@ -1,6 +1,6 @@
 import "./App.css";
 import ButtonField from "./features/ButtonField";
-import { Box, Grid } from "@mui/material";
+import { Grid } from "@mui/material";
 import { useGameState } from "./hooks/useGameState";
 import ResetButton from "./features/ResetButton";
 import NumberBox from "./features/NumberBox";
@@ -9,7 +9,7 @@ function App() {
   const gameState = useGameState();
 
   return (
-    <Box display="flex" justifyContent="center" alignItems="center">
+    <>
       <Grid
         container
         direction="column"
@@ -28,7 +28,7 @@ function App() {
           <ResetButton gameState={gameState} />
         </Grid>
       </Grid>
-    </Box>
+    </>
   );
 }
 
