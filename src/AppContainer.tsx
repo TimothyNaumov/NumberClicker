@@ -1,6 +1,7 @@
 import { Box } from "@mui/material";
 import App from "./App";
 import HowToPlay from "./features/HowToPlay";
+import SocialMediaButtons from "./features/MySocials";
 export const AppContainer = () => {
   return (
     <Box
@@ -17,7 +18,7 @@ export const AppContainer = () => {
         <App />
       </Box>
       <Box position="absolute" bottom={0} right={0} p={2}>
-        <button>Bottom Right Button</button>
+        <SocialMediaButtons />
       </Box>
     </Box>
   );
