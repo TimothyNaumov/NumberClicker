@@ -2,6 +2,7 @@ import ReactDOM from "react-dom/client";
 import "./index.css";
 import { ThemeProvider, createTheme } from "@mui/material";
 import { AppContainer } from "./AppContainer.tsx";
+import { grey } from "@mui/material/colors";
 
 const lightTheme = createTheme({
   palette: {
@@ -24,6 +25,9 @@ const darkTheme = createTheme({
     secondary: {
       main: "#cfcfcf",
     },
+    background: {
+      paper: grey[800]
+    }
   },
 });
 
