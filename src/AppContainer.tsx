@@ -9,7 +9,6 @@ export const AppContainer = () => {
       alignItems="center"
       justifyContent="space-between"
     >
-      {/* Button at the top right */}
       <Box position="absolute" top={0} right={0} p={2}>
         <HowToPlay />
       </Box>
