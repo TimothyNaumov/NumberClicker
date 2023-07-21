@@ -1,5 +1,4 @@
 import { Grid, Button } from "@mui/material";
-import click from "../sounds/click.mp3";
 import single_click from "../sounds/single_click.mp3";
 
 const audio = new Audio(single_click);
