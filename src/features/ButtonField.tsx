@@ -1,6 +1,15 @@
 import { Grid, Button } from "@mui/material";
+import click from "../sounds/click.mp3";
+import single_click from "../sounds/single_click.mp3";
+
+const audio = new Audio(single_click);
+audio.load();
 
 const ButtonField = ({ gameState }: any) => {
+  function clickSound() {
+    audio.play();
+  }
+
   return (
     <Grid container spacing={2} justifyContent="center">
       {gameState.sortedList.map((value: any, index: number) => {
@@ -22,7 +31,10 @@ const ButtonField = ({ gameState }: any) => {
                 },
               }}
               style={{ height: "50px" }}
-              onClick={() => gameState.spaceSelected(index)}
+              onClick={() => {
+                clickSound();
+                gameState.spaceSelected(index);
+              }}
             >
               {gameState.sortedList[index]}
             </Button>
