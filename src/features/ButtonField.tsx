@@ -1,12 +1,19 @@
 import { Grid, Button } from "@mui/material";
 import single_click from "../sounds/single_click.mp3";
+import { playSoundWithInterruption } from "../utils/audio.utils";
+import { useContext } from "react";
+import { VolumeContext } from "../context/VolumeContext";
 
-const audio = new Audio(single_click);
-audio.load();
+const clickSound = new Audio(single_click);
+clickSound.load();
 
 const ButtonField = ({ gameState }: any) => {
-  function clickSound() {
-    audio.play();
+  const { volume } = useContext(VolumeContext);
+
+  function handleClick(index: number) {
+    //Something about playing sound on number slots is very problamatic, going to exclude it for now
+    playSoundWithInterruption(clickSound, volume);
+    gameState.spaceSelected(index);
   }
 
   return (
@@ -30,10 +37,7 @@ const ButtonField = ({ gameState }: any) => {
                 },
               }}
               style={{ height: "50px" }}
-              onClick={() => {
-                clickSound();
-                gameState.spaceSelected(index);
-              }}
+              onClick={() => handleClick(index)}
             >
               {gameState.sortedList[index]}
             </Button>

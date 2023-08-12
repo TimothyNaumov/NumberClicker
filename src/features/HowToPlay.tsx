@@ -30,8 +30,8 @@ export default function HowToPlay() {
 
   return (
     <div>
-      <IconButton size="small" onClick={handleOpen}>
-        <HelpOutlineIcon fontSize="large" />
+      <IconButton size="small" onClick={handleOpen} sx={{ padding: "6px" }}>
+        <HelpOutlineIcon sx={{ fontSize: 30 }} />
       </IconButton>
       <Modal
         aria-labelledby="transition-modal-title"

@@ -4,12 +4,14 @@ import { Box, Grid } from "@mui/material";
 import { useGameState } from "./hooks/useGameState";
 import ResetButton from "./features/ResetButton";
 import NumberBox from "./features/NumberBox";
+import AudioPlayer from "./modules/AudioPlayer";
 
 function App() {
   const gameState = useGameState();
 
   return (
     <Box display="flex" justifyContent="center" alignItems="center">
+      <AudioPlayer gameState={gameState} />
       <Grid
         container
         direction="column"

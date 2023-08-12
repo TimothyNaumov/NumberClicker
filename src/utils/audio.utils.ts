@@ -1,5 +1,7 @@
 // Function to handle interruptions and play the audio.
-export const playSoundWithInterruption = (sound: any) => {
+export const playSoundWithInterruption = (sound: any, volume: number) => {
+  sound.volume = volume;
+  console.log(sound.volume);
   if (!sound.paused) {
     // If the sound is already playing, pause it to allow interruption.
     sound.pause();

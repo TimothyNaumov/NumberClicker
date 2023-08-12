@@ -3,6 +3,7 @@ import "./index.css";
 import { ThemeProvider, createTheme } from "@mui/material";
 import { AppContainer } from "./AppContainer.tsx";
 import { grey } from "@mui/material/colors";
+import { VolumeProvider } from "./context/VolumeContext.tsx";
 
 const lightTheme = createTheme({
   palette: {
@@ -26,8 +27,8 @@ const darkTheme = createTheme({
       main: "#cfcfcf",
     },
     background: {
-      paper: grey[800]
-    }
+      paper: grey[800],
+    },
   },
 });
 
@@ -35,6 +36,8 @@ const prefersDark = window.matchMedia("(prefers-color-scheme: dark)").matches;
 
 ReactDOM.createRoot(document.getElementById("root") as HTMLElement).render(
   <ThemeProvider theme={prefersDark ? darkTheme : lightTheme}>
-    <AppContainer />
+    <VolumeProvider>
+      <AppContainer />
+    </VolumeProvider>
   </ThemeProvider>
 );
