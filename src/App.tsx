@@ -5,6 +5,7 @@ import { useGameState } from "./hooks/useGameState";
 import ResetButton from "./features/ResetButton";
 import NumberBox from "./features/NumberBox";
 import AudioPlayer from "./modules/AudioPlayer";
+import ScoreLogger from "./modules/ScoreLogger";
 
 function App() {
   const gameState = useGameState();
@@ -12,6 +13,7 @@ function App() {
   return (
     <Box display="flex" justifyContent="center" alignItems="center">
       <AudioPlayer gameState={gameState} />
+      <ScoreLogger gameState={gameState} />
       <Grid
         container
         direction="column"
