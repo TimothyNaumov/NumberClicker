@@ -17,7 +17,7 @@ const AudioControl: React.FC = () => {
     setShowSlider(!showSlider);
   };
 
-  const handleVolumeChange = (event: Event, newValue: number | number[]) => {
+  const handleVolumeChange = (event: Event, newValue: number) => {
     setVolume((newValue as number) / 100);
   };
 
