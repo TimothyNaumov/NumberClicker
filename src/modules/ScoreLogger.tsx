@@ -1,14 +1,38 @@
 import { useEffect } from "react";
 import { push, ref, set } from "firebase/database";
-import { database } from "../Firebase";
+import { database, serverStamp } from "../Firebase";
+import {
+  browserName,
+  browserVersion,
+  deviceType,
+  osName,
+  osVersion,
+  mobileVendor,
+  mobileModel,
+} from "react-device-detect";
 
 function writeScore(score: number) {
   const db = database;
-  console.log(db);
-  console.log(`trying to write ${score}`);
   const scoresRef = ref(db, "scores/");
   const newScoreRef = push(scoresRef);
-  set(newScoreRef, { score: score }).catch((error) => {
+
+  const timestamp = serverStamp.now();
+
+  const deviceInfo = {
+    browserName,
+    browserVersion,
+    deviceType,
+    osName,
+    osVersion,
+    mobileVendor,
+    mobileModel,
+  };
+
+  set(newScoreRef, {
+    score: score,
+    timestamp: timestamp,
+    deviceInfo: deviceInfo,
+  }).catch((error) => {
     console.error("Error writing score:", error);
   });
 }

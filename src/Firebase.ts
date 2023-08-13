@@ -5,6 +5,9 @@ import {
   ReCaptchaEnterpriseProvider,
 } from "@firebase/app-check";
 
+import firebase from "firebase/compat/app";
+import "firebase/compat/firestore";
+
 const firebaseConfig = {
   apiKey: "AIzaSyAI7tlamK2-GE6DpBJYcSwKaN-fK6kBaxw",
   authDomain: "random-number-sorter.firebaseapp.com",
@@ -25,5 +28,7 @@ initializeAppCheck(app, {
 });
 
 export const database = getDatabase(app);
+
+export const serverStamp = firebase.firestore.Timestamp;
 
 export default app;
