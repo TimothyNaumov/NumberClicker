@@ -17,18 +17,20 @@ export const initialState = {
   disabledList: Array(10).fill(false),
   errors: {},
   endGameState: "INPROGRESS",
+  score: 0,
 };
 
 const gameStateReducer = (state = initialState, action: any) => {
   switch (action.type) {
     case SPACE_SELECTED: {
-      //TODO: change state to be immutable
       const spaceIndex = action.payload.spaceIndex;
 
       const nextSortedList = [...state.sortedList];
       nextSortedList[spaceIndex] = state.randomNumber;
 
       const nextRandomNumber = getNewRandomNumber(state.usedRandomNumbers);
+
+      const nextScore = state.score + 1;
 
       let nextEndGameState = "INPROGRESS";
       if (playerWon(nextSortedList)) {
@@ -50,6 +52,7 @@ const gameStateReducer = (state = initialState, action: any) => {
         usedRandomNumbers: [...state.usedRandomNumbers, nextRandomNumber],
         endGameState: nextEndGameState,
         disabledList: nextDisabledList,
+        score: nextScore,
       };
     }
 
@@ -63,6 +66,7 @@ const gameStateReducer = (state = initialState, action: any) => {
         disabledList: Array(10).fill(false),
         errors: {},
         endGameState: "INPROGRESS",
+        score: 0,
       };
 
       return {
