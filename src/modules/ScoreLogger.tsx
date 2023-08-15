@@ -39,12 +39,9 @@ function writeScore(score: number) {
 
 const ScoreLogger = ({ gameState }: any) => {
   useEffect(() => {
-    console.log(gameState);
     if (gameState.endGameState === "WIN") {
-      console.log("writing perfect score to database");
       writeScore(gameState.score);
     } else if (gameState.endGameState === "LOSE") {
-      console.log("writing " + gameState.score + " to database");
       writeScore(gameState.score);
     }
   }, [gameState]); // This effect will run every time `endGameState` changes

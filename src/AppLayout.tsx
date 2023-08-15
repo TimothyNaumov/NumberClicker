@@ -1,8 +1,9 @@
 import { Box } from "@mui/material";
-import App from "./App";
 import SocialMediaButtons from "./features/MySocials";
 import GameInfo from "./features/GameInfo";
-export const AppContainer = () => {
+import ViewSwitch from "./features/ViewSwitch";
+import { Outlet } from "react-router-dom";
+export const AppLayout = () => {
   return (
     <Box
       display="flex"
@@ -10,12 +11,14 @@ export const AppContainer = () => {
       alignItems="center"
       justifyContent="space-between"
     >
-      {/* Button at the top right */}
       <Box position="absolute" top={0} right={0} p={2}>
         <SocialMediaButtons />
       </Box>
+      <Box position="absolute" top={0} p={2}>
+        <ViewSwitch />
+      </Box>
       <Box>
-        <App />
+        <Outlet/>
       </Box>
       <Box
         position="absolute"
@@ -31,4 +34,4 @@ export const AppContainer = () => {
   );
 };
 
-export default AppContainer;
+export default AppLayout;

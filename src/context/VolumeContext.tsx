@@ -26,7 +26,6 @@ const VolumeProvider: React.FC<VolumeProviderProps> = ({ children }) => {
   useEffect(() => {
     // Save volume to local storage whenever it changes
     localStorage.setItem("volume", volume.toString());
-    console.log("Volume changed to: " + volume);
   }, [volume]);
 
   return (

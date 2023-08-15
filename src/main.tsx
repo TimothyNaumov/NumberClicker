@@ -1,43 +1,20 @@
 import ReactDOM from "react-dom/client";
 import "./index.css";
-import { ThemeProvider, createTheme } from "@mui/material";
-import { AppContainer } from "./AppContainer.tsx";
-import { grey } from "@mui/material/colors";
+import { ThemeProvider } from "@mui/material";
+import { AppLayout } from "./AppLayout.tsx";
 import { VolumeProvider } from "./context/VolumeContext.tsx";
-
-const lightTheme = createTheme({
-  palette: {
-    mode: "light",
-    primary: {
-      main: "#addfff",
-    },
-    secondary: {
-      main: "#cfcfcf",
-    },
-  },
-});
-
-const darkTheme = createTheme({
-  palette: {
-    mode: "dark",
-    primary: {
-      main: "#addfff",
-    },
-    secondary: {
-      main: "#cfcfcf",
-    },
-    background: {
-      paper: grey[800],
-    },
-  },
-});
+import { BrowserRouter } from "react-router-dom";
+import { darkTheme, lightTheme } from "./theme/themes.ts";
+import AppRouter from "./AppRouter.tsx";
 
 const prefersDark = window.matchMedia("(prefers-color-scheme: dark)").matches;
 
 ReactDOM.createRoot(document.getElementById("root") as HTMLElement).render(
   <ThemeProvider theme={prefersDark ? darkTheme : lightTheme}>
     <VolumeProvider>
-      <AppContainer />
+      <BrowserRouter>
+        <AppRouter />
+      </BrowserRouter>
     </VolumeProvider>
   </ThemeProvider>
 );

@@ -1,11 +1,11 @@
-import "./App.css";
-import ButtonField from "./features/ButtonField";
+import "../App.css"
+import ButtonField from "../features/ButtonField";
 import { Box, Grid } from "@mui/material";
-import { useGameState } from "./hooks/useGameState";
-import ResetButton from "./features/ResetButton";
-import NumberBox from "./features/NumberBox";
-import AudioPlayer from "./modules/AudioPlayer";
-import ScoreLogger from "./modules/ScoreLogger";
+import { useGameState } from "../hooks/useGameState";
+import ResetButton from "../features/ResetButton";
+import NumberBox from "../features/NumberBox";
+import AudioPlayer from "../modules/AudioPlayer";
+import ScoreLogger from "../modules/ScoreLogger";
 
 function App() {
   const gameState = useGameState();

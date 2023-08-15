@@ -11,7 +11,6 @@ const loseSound = new Audio(lose);
 const AudioPlayer = ({ gameState }: any) => {
   const { volume } = useContext(VolumeContext);
   useEffect(() => {
-    console.log(gameState);
     if (gameState.endGameState === "WIN") {
       playSoundWithInterruption(winSound, volume);
     } else if (gameState.endGameState === "LOSE") {
