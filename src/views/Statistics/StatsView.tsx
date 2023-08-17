@@ -2,8 +2,10 @@ import { Box, Theme, Typography } from '@mui/material';
 import { BarChart, Bar, XAxis, YAxis, CartesianGrid, Tooltip, Text } from 'recharts';
 import { useTheme } from '@emotion/react';
 import React, { useEffect } from 'react';
-import { database } from '../Firebase';
+import { database } from '../../Firebase';
 import { off, onValue, ref } from 'firebase/database';
+import StatsGraph from './StatsGraph';
+import { StatsBar } from './StatsBar';
 
 function formatData(data: any) {
   const formattedData: any[] = [];
@@ -17,19 +19,18 @@ function formatData(data: any) {
   return formattedData;
 }
 
-const StatsView = ({data, average, gamesPlayed}: any) => {
+const StatsView = (props: any) => {
   const theme = useTheme() as Theme;
   
   return (
     <Box
       display="flex"
       flexDirection="column"
-      alignItems="center"
-      justifyContent="space-between"
-      
+      alignItems="flex-start"
+      justifyContent="flex-start"
     >
       <Box p={2} m={2}>
-        <Typography variant='h3'>Live Global Data</Typography>
+        <Typography variant='h3' sx={{ fontWeight: 'bold' }}>Real Time Statistics</Typography>
       </Box>
       <Box
         display="flex"
@@ -37,34 +38,8 @@ const StatsView = ({data, average, gamesPlayed}: any) => {
         alignItems="flex-start"
         justifyContent="space-between"
       >
-        <Box
-          display="flex"
-          flexDirection="column"
-          alignItems="flex-start"
-          justifyContent="flex-start"
-          width={300}
-        >
-          <Typography variant='h4'>Average: {average.toFixed(2)}</Typography>
-          <Typography variant='h4'>Games Played: {gamesPlayed}</Typography>
-        </Box>
-        <Box
-          display="flex"
-          flexDirection="column"
-          alignItems="center"
-          justifyContent="space-between"
-        >
-          <Box>
-            <BarChart width={1200} height={600} data={data}>
-              <CartesianGrid strokeDasharray="3 3" />
-              <XAxis dataKey="score" label={{ value: 'Score', angle: 0, position: 'bottom', dy: -15 }} />
-              <YAxis label={{ value: 'Frequency', angle: -90, position: 'insideLeft' }}/>
-              <Tooltip itemStyle={{ color: 'black' }}/>
-              <Bar dataKey="frequency" fill={theme.palette.primary.main} />
-              <Text x={0} y={20} textAnchor="start" fill="black" fontSize="24px" fontWeight="bold">Average</Text>
-              <Text x={0} y={60} textAnchor="start" fill="black" fontSize="24px" fontWeight="bold">Games Played</Text>
-            </BarChart>
-          </Box>
-        </Box>
+        <StatsBar {...props}/>
+        <StatsGraph {...props}/>
       </Box>
     </Box>
   );

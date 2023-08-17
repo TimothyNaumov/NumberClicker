@@ -1,6 +1,6 @@
 import { Routes, Route } from "react-router-dom";
 import GameView from "./views/GameView";
-import StatsView from "./views/StatsView";
+import StatsView from "./views/Statistics/StatsView";
 import { NoMatchView } from "./views/NoMatchView";
 import AppLayout from "./AppLayout";
 
