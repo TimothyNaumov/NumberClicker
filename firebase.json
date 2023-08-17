@@ -8,12 +8,12 @@
     ],
     "rewrites": [
       {
-        "source": "**",
-        "destination": "/index.html"
-      },
-      {
         "source": "/api/getfrequencydistribution",
         "function": "getFrequencyDistribution"
+      },
+      {
+        "source": "**",
+        "destination": "/index.html"
       }
     ]
   }
