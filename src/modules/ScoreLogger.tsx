@@ -12,8 +12,14 @@ import {
 } from "react-device-detect";
 
 function writeScore(score: number) {
+  const uid = localStorage.getItem('user_uid');
+  if(!uid){
+    console.log('ERROR: Invalid UID - score not logged');
+    return;
+  }
+
   const db = database;
-  const scoresRef = ref(db, "scores/");
+  const scoresRef = ref(db, `users/${uid}/scores`);
   const newScoreRef = push(scoresRef);
 
   const timestamp = serverStamp.now();

@@ -8,6 +8,8 @@ import {
 import firebase from "firebase/compat/app";
 import "firebase/compat/firestore";
 
+import { getAuth, onAuthStateChanged, signInAnonymously } from "firebase/auth";
+
 const firebaseConfig = {
   apiKey: "AIzaSyAI7tlamK2-GE6DpBJYcSwKaN-fK6kBaxw",
   authDomain: "random-number-sorter.firebaseapp.com",
@@ -33,6 +35,28 @@ if (location.hostname === "localhost") {
   // Point to the RTDB emulator running on localhost.
   connectDatabaseEmulator(database, "127.0.0.1", 5002);
 } 
+
+const auth = getAuth();
+signInAnonymously(auth)
+  .then(() => {
+    console.log('Anonymously logged in succesfully');
+  })
+  .catch((error) => {
+    const errorCode = error.code;
+    const errorMessage = error.message;
+    console.log(errorCode + errorMessage);
+  });
+
+onAuthStateChanged(auth, (user) => {
+  if (user) {
+    console.log(user);
+    console.log("User signed in:", user.uid);
+    localStorage.setItem('user_uid', user.uid);
+  } else {
+    console.log("No user is signed in.");
+    localStorage.removeItem('user_uid');
+  }
+});
 
 export const serverStamp = firebase.firestore.Timestamp;
 
