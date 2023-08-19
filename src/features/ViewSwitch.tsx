@@ -4,7 +4,8 @@ import { useNavigate, useLocation } from "react-router-dom";
 
 export const ViewSwitch = () => {
     const location = useLocation();
-    const [view, setView] = React.useState(location.pathname);
+    const useStatsView = location.pathname.startsWith('/stats');
+    const [view, setView] = React.useState(useStatsView ? '/stats/global' : "/");
     const navigate = useNavigate();
     
     const handleChange = (
@@ -27,7 +28,7 @@ export const ViewSwitch = () => {
       style={{ display: 'flex' }}
     >
       <ToggleButton value="/" style={{ flex: 1, width: '50%' }}>play</ToggleButton>
-      <ToggleButton value="/stats" style={{ flex: 1, width: '50%' }}>stats</ToggleButton>
+      <ToggleButton value="/stats/global" style={{ flex: 1, width: '50%' }}>stats</ToggleButton>
     </ToggleButtonGroup>
   );
 }

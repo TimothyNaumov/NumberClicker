@@ -7,7 +7,6 @@ export const StatsBar = ({average, gamesPlayed}: any) => {
       flexDirection="column"
       alignItems="flex-start"
       justifyContent="flex-start"
-      ml={5}
     >
       <Typography variant='h5' color='secondary'>Average Score</Typography>
       <Typography variant='h3'>{average.toFixed(2)}</Typography>

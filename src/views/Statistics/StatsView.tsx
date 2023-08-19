@@ -1,11 +1,12 @@
-import { Box, Theme, Typography } from '@mui/material';
-import { BarChart, Bar, XAxis, YAxis, CartesianGrid, Tooltip, Text } from 'recharts';
-import { useTheme } from '@emotion/react';
+import { Box, CircularProgress, Typography } from '@mui/material';
 import React, { useEffect } from 'react';
 import { database } from '../../Firebase';
-import { off, onValue, ref } from 'firebase/database';
+import { get, off, onValue, ref } from 'firebase/database';
 import StatsGraph from './StatsGraph';
 import { StatsBar } from './StatsBar';
+import StatsSelector from './StatsSelector';
+import { useParams } from 'react-router-dom';
+import DataNotFoundGraph from './DataNotFoundGraph';
 
 function formatData(data: any) {
   const formattedData: any[] = [];
@@ -20,8 +21,6 @@ function formatData(data: any) {
 }
 
 const StatsView = (props: any) => {
-  const theme = useTheme() as Theme;
-  
   return (
     <Box
       display="flex"
@@ -29,8 +28,9 @@ const StatsView = (props: any) => {
       alignItems="flex-start"
       justifyContent="flex-start"
     >
-      <Box p={2} m={2}>
+      <Box display="flex" flexDirection="row" justifyContent="space-between" alignItems='center' width='100%' mb={3}>
         <Typography variant='h3' sx={{ fontWeight: 'bold' }}>Real Time Statistics</Typography>
+        <StatsSelector />
       </Box>
       <Box
         display="flex"
@@ -39,7 +39,7 @@ const StatsView = (props: any) => {
         justifyContent="space-between"
       >
         <StatsBar {...props}/>
-        <StatsGraph {...props}/>
+        {props.data ? <StatsGraph {...props}/> : <DataNotFoundGraph/>}
       </Box>
     </Box>
   );
@@ -47,13 +47,28 @@ const StatsView = (props: any) => {
 
 const Resolver = () => {
   const [stats, setStats] = React.useState(null) as any;
+  const [error, setError] = React.useState(false);
+  const {uid} = useParams();
 
   useEffect(() => {
     const db = database;
-    const statsRef = ref(db, 'stats');
+    let statsRef = ref(db, 'stats');
+    if(uid != 'global'){
+      statsRef = ref(db, `users/${uid}/stats`);
+    }
 
+    get(statsRef).then((snapshot) => {
+      if (!snapshot.exists()) {
+        setError(true);
+      } else {
+        setError(false);
+      }
+    }).catch((error) => {
+      console.error('Error getting data:', error);
+      setError(true);
+    });
+    
     const handleValueChange = (snapshot: any) => {
-      console.log(snapshot.val());
       setStats(snapshot.val());
     }
     onValue(statsRef, handleValueChange);
@@ -62,13 +77,15 @@ const Resolver = () => {
     return () => {
       off(statsRef, 'value', handleValueChange);
     };
-  }, []);
+  }, [uid]);
 
-  if(stats == null){
-    return <p>loading...</p>
+  if(error){
+    return <StatsView average={0} gamesPlayed={0}/>;
   }
 
-  console.log(formatData(stats.frequencyDistribution));
+  if(stats == null){
+    return <CircularProgress />
+  }
 
   return <StatsView data={formatData(stats.frequencyDistribution)} average={stats.averageScore} gamesPlayed={stats.gamesPlayed}/>;
 }

@@ -49,11 +49,8 @@ signInAnonymously(auth)
 
 onAuthStateChanged(auth, (user) => {
   if (user) {
-    console.log(user);
-    console.log("User signed in:", user.uid);
     localStorage.setItem('user_uid', user.uid);
   } else {
-    console.log("No user is signed in.");
     localStorage.removeItem('user_uid');
   }
 });

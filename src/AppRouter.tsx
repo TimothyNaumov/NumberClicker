@@ -9,8 +9,7 @@ export default function AppRouter() {
         <Routes>
             <Route path="/" element={<AppLayout />}>
                 <Route index element={<GameView />} />
-                <Route path="play" element={<GameView />} />
-                <Route path="stats" element={<StatsView />} />
+                <Route path="stats/:uid" element={<StatsView />} />
                 <Route path="*" element={<NoMatchView />} />
             </Route>
       </Routes>
