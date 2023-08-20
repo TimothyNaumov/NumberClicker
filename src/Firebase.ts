@@ -1,5 +1,11 @@
 import { initializeApp } from "firebase/app";
-import { connectDatabaseEmulator, getDatabase } from "firebase/database";
+import {
+  connectDatabaseEmulator,
+  get,
+  getDatabase,
+  ref,
+  set,
+} from "firebase/database";
 import {
   initializeAppCheck,
   ReCaptchaEnterpriseProvider,
@@ -9,6 +15,8 @@ import firebase from "firebase/compat/app";
 import "firebase/compat/firestore";
 
 import { getAuth, onAuthStateChanged, signInAnonymously } from "firebase/auth";
+import UAParser from "ua-parser-js";
+import axios from "axios";
 
 const firebaseConfig = {
   apiKey: "AIzaSyAI7tlamK2-GE6DpBJYcSwKaN-fK6kBaxw",
@@ -34,12 +42,12 @@ export const database = getDatabase(app);
 if (location.hostname === "localhost") {
   // Point to the RTDB emulator running on localhost.
   connectDatabaseEmulator(database, "127.0.0.1", 5002);
-} 
+}
 
 const auth = getAuth();
 signInAnonymously(auth)
   .then(() => {
-    console.log('Anonymously logged in succesfully');
+    console.log("Anonymously logged in succesfully");
   })
   .catch((error) => {
     const errorCode = error.code;
@@ -49,12 +57,56 @@ signInAnonymously(auth)
 
 onAuthStateChanged(auth, (user) => {
   if (user) {
-    localStorage.setItem('user_uid', user.uid);
+    const uid = user.uid;
+    localStorage.setItem("user_uid", uid);
+
+    const userRef = ref(database, `users/${uid}/profile`);
+
+    //Check if user already exists
+    get(userRef)
+      .then(async (snapshot) => {
+        if (!snapshot.exists()) {
+          //If the user does not already exist, set some initial data
+          const timestamp = serverStamp.now();
+
+          const userAgentString = navigator.userAgent;
+          const parser = new UAParser(userAgentString);
+          const userAgent = parser.getResult();
+
+          // Replace undefined values with 'unknown' (or any other default value)
+          const sanitizedUserAgent = JSON.parse(
+            JSON.stringify(userAgent, (key, value) => {
+              if (value === undefined) {
+                return "unknown";
+              }
+              return value;
+            })
+          );
+
+          const IP = await getIP();
+
+          set(userRef, {
+            createdAt: timestamp,
+            userAgent: sanitizedUserAgent,
+            IP: IP,
+          }).catch((error) => {
+            console.error("Error writing score:", error);
+          });
+        }
+      })
+      .catch((error) => {
+        console.error("Error getting data:", error);
+      });
   } else {
-    localStorage.removeItem('user_uid');
+    localStorage.removeItem("user_uid");
   }
 });
 
 export const serverStamp = firebase.firestore.Timestamp;
 
 export default app;
+
+const getIP = async () => {
+  const res = await axios.get("https://api.ipify.org/?format=json");
+  return res.data.ip;
+};

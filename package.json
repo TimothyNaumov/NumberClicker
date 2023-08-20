@@ -15,17 +15,19 @@
     "@firebase/app-check": "^0.8.0",
     "@mui/icons-material": "^5.13.7",
     "@mui/material": "^5.13.0",
+    "axios": "^1.4.0",
     "react": "^18.2.0",
-    "react-device-detect": "^2.2.3",
     "react-dom": "^18.2.0",
     "react-firebase-hooks": "^5.1.1",
     "react-router-dom": "^6.15.0",
-    "recharts": "^2.7.3"
+    "recharts": "^2.7.3",
+    "ua-parser-js": "^1.0.35"
   },
   "devDependencies": {
     "@types/firebase": "^3.2.1",
     "@types/react": "^18.0.28",
     "@types/react-dom": "^18.0.11",
+    "@types/ua-parser-js": "^0.7.36",
     "@typescript-eslint/eslint-plugin": "^5.57.1",
     "@typescript-eslint/parser": "^5.57.1",
     "@vitejs/plugin-react": "^4.0.0",

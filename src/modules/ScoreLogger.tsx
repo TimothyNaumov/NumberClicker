@@ -1,20 +1,11 @@
 import { useEffect } from "react";
 import { push, ref, set } from "firebase/database";
 import { database, serverStamp } from "../Firebase";
-import {
-  browserName,
-  browserVersion,
-  deviceType,
-  osName,
-  osVersion,
-  mobileVendor,
-  mobileModel,
-} from "react-device-detect";
 
 function writeScore(score: number) {
-  const uid = localStorage.getItem('user_uid');
-  if(!uid){
-    console.log('ERROR: Invalid UID - score not logged');
+  const uid = localStorage.getItem("user_uid");
+  if (!uid) {
+    console.log("ERROR: Invalid UID - score not logged");
     return;
   }
 
@@ -24,20 +15,9 @@ function writeScore(score: number) {
 
   const timestamp = serverStamp.now();
 
-  const deviceInfo = {
-    browserName,
-    browserVersion,
-    deviceType,
-    osName,
-    osVersion,
-    mobileVendor,
-    mobileModel,
-  };
-
   set(newScoreRef, {
     score: score,
     timestamp: timestamp,
-    deviceInfo: deviceInfo,
   }).catch((error) => {
     console.error("Error writing score:", error);
   });
