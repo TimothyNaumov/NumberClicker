@@ -83,12 +83,9 @@ onAuthStateChanged(auth, (user) => {
             })
           );
 
-          const IP = await getIP();
-
           set(userRef, {
             createdAt: timestamp,
             userAgent: sanitizedUserAgent,
-            IP: IP,
           }).catch((error) => {
             console.error("Error writing score:", error);
           });
@@ -105,8 +102,3 @@ onAuthStateChanged(auth, (user) => {
 export const serverStamp = firebase.firestore.Timestamp;
 
 export default app;
-
-const getIP = async () => {
-  const res = await axios.get("https://api.ipify.org/?format=json");
-  return res.data.ip;
-};
