@@ -11,7 +11,11 @@ function UserScore({ score, deltaScore, ...props }: any) {
     <Box display="flex" flexDirection="column" position="relative">
       <Box minHeight="32px">
         {deltaScore > 0 && (
-          <Typography variant="h6" className="floating-points positive">
+          <Typography
+            variant="h6"
+            className="floating-points positive"
+            key={score}
+          >
             +{deltaScore}
           </Typography>
         )}
@@ -21,7 +25,11 @@ function UserScore({ score, deltaScore, ...props }: any) {
       </Typography>
       <Box minHeight="32px">
         {deltaScore < 0 && (
-          <Typography variant="h6" className="floating-points negative">
+          <Typography
+            variant="h6"
+            className="floating-points negative"
+            key={score}
+          >
             {deltaScore}
           </Typography>
         )}
