@@ -16,7 +16,6 @@ import "firebase/compat/firestore";
 
 import { getAuth, onAuthStateChanged, signInAnonymously } from "firebase/auth";
 import UAParser from "ua-parser-js";
-import axios from "axios";
 
 const firebaseConfig = {
   apiKey: "AIzaSyAI7tlamK2-GE6DpBJYcSwKaN-fK6kBaxw",
@@ -60,10 +59,10 @@ onAuthStateChanged(auth, (user) => {
     const uid = user.uid;
     localStorage.setItem("user_uid", uid);
 
-    const userRef = ref(database, `users/${uid}/profile`);
+    const userProfileRef = ref(database, `users/${uid}/profile`);
 
     //Check if user already exists
-    get(userRef)
+    get(userProfileRef)
       .then(async (snapshot) => {
         if (!snapshot.exists()) {
           //If the user does not already exist, set some initial data
@@ -83,9 +82,24 @@ onAuthStateChanged(auth, (user) => {
             })
           );
 
-          set(userRef, {
+          set(userProfileRef, {
             createdAt: timestamp,
             userAgent: sanitizedUserAgent,
+          }).catch((error) => {
+            console.error("Error writing score:", error);
+          });
+        }
+      })
+      .catch((error) => {
+        console.error("Error getting data:", error);
+      });
+
+    const userStatsRef = ref(database, `users/${uid}/stats`);
+    get(userStatsRef)
+      .then(async (snapshot) => {
+        if (!snapshot.exists()) {
+          set(userStatsRef, {
+            points: 100,
           }).catch((error) => {
             console.error("Error writing score:", error);
           });

@@ -5,6 +5,7 @@ import shuffle from "../sounds/shuffle.mp3";
 import { playSoundWithInterruption } from "../utils/audio.utils";
 import { useContext } from "react";
 import { VolumeContext } from "../context/VolumeContext";
+import { purchaseRound } from "../utils/score.utils";
 
 const shuffleSound = new Audio(shuffle);
 shuffleSound.load();
@@ -15,6 +16,7 @@ export const ResetButton = ({ gameState }: any) => {
   function handleClick() {
     gameState.resetGame();
     playSoundWithInterruption(shuffleSound, volume);
+    purchaseRound();
   }
 
   if (gameState.endGameState === "WIN" || gameState.endGameState === "LOSE") {

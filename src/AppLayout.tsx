@@ -9,7 +9,8 @@ export const AppLayout = () => {
       display="flex"
       flexDirection="column"
       alignItems="center"
-      justifyContent="space-between"
+      justifyContent="center"
+      minHeight="60vh"
     >
       <Box position="absolute" top={0} right={0} p={2}>
         <SocialMediaButtons />
@@ -17,9 +18,7 @@ export const AppLayout = () => {
       <Box position="absolute" top={0} p={2}>
         <ViewSwitch />
       </Box>
-      <Box>
-        <Outlet/>
-      </Box>
+      <Outlet />
       <Box
         position="absolute"
         bottom={0}

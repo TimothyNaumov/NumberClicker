@@ -40,3 +40,46 @@
 .read-the-docs {
   color: #888;
 }
+
+.floating-points {
+  left: 50%;
+  transform: translateX(-50%);
+  border-radius: 5px;
+  padding: 5px 10px;
+  opacity: 1;
+  position: absolute;
+}
+
+.floating-points.positive {
+  color: green;
+  animation: floatUp 2s forwards;
+  top: 0;
+}
+
+.floating-points.negative {
+  color: red;
+  animation: floatDown 2s forwards;
+  bottom: 0;
+}
+
+@keyframes floatUp {
+  0% {
+    top: 0;
+    opacity: 1;
+  }
+  100% {
+    top: -50px;
+    opacity: 0;
+  }
+}
+
+@keyframes floatDown {
+  0% {
+    bottom: 0;
+    opacity: 1;
+  }
+  100% {
+    bottom: -50px;
+    opacity: 0;
+  }
+}
