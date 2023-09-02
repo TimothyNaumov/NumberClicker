@@ -4,7 +4,7 @@ import { Box, Typography } from "@mui/material";
 export const Leaderboardsview = () => {
   return (
     <Box>
-      <img src="../../../public/under-construction.svg" height="500px" />
+      <img src="/under-construction.svg" height="500px" />
       <Typography variant="h1">Under Construction</Typography>
       <Typography variant="h3">Coming Soon</Typography>
     </Box>
