@@ -3,7 +3,6 @@ import React from "react";
 import { useNavigate, useLocation } from "react-router-dom";
 import LeaderboardIcon from "@mui/icons-material/Leaderboard";
 import QueryStatsIcon from "@mui/icons-material/QueryStats";
-import PlayCircleOutlineIcon from "@mui/icons-material/PlayCircleOutline";
 import CasinoIcon from "@mui/icons-material/Casino";
 export const ViewSwitch = () => {
   const location = useLocation();
@@ -21,8 +20,6 @@ export const ViewSwitch = () => {
     }
   };
 
-  // style={{ flex: 1, width: "50%" }}
-
   return (
     <ToggleButtonGroup
       color="info"
@@ -32,13 +29,19 @@ export const ViewSwitch = () => {
       aria-label="Platform"
       style={{ display: "flex" }}
     >
-      <ToggleButton value="/">
+      <ToggleButton
+        value="/"
+        style={{ borderRadius: 0, borderTopLeftRadius: "4px" }}
+      >
         <CasinoIcon />
       </ToggleButton>
-      <ToggleButton value="/stats/global">
+      <ToggleButton value="/stats/global" style={{ borderRadius: 0 }}>
         <QueryStatsIcon />
       </ToggleButton>
-      <ToggleButton value="/stats/leaderboards">
+      <ToggleButton
+        value="/stats/leaderboards"
+        style={{ borderRadius: 0, borderTopRightRadius: "4px" }}
+      >
         <LeaderboardIcon />
       </ToggleButton>
     </ToggleButtonGroup>

@@ -8,8 +8,13 @@ import "../App.css";
 function UserScore({ score, deltaScore, ...props }: any) {
   console.log("score, deltaScore", score, deltaScore);
   return (
-    <Box display="flex" flexDirection="column" position="relative">
-      <Box minHeight="32px">
+    <Box
+      display="flex"
+      flexDirection="row"
+      position="relative"
+      justifyContent="center"
+    >
+      <Box minHeight="42">
         {deltaScore > 0 && (
           <Typography
             variant="h6"
@@ -20,10 +25,8 @@ function UserScore({ score, deltaScore, ...props }: any) {
           </Typography>
         )}
       </Box>
-      <Typography {...props} minHeight="72px">
-        {score}
-      </Typography>
-      <Box minHeight="32px">
+      <Typography {...props}>{score}</Typography>
+      <Box minHeight="42">
         {deltaScore < 0 && (
           <Typography
             variant="h6"

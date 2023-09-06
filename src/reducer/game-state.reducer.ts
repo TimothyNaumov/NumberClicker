@@ -8,19 +8,20 @@ import {
 
 export const SPACE_SELECTED = "SPACE_SELECTED";
 export const RESET_GAME = "RESET_GAME";
-const initialRandomNumber = randomNumberInRange(1, 100);
-
-export const initialState = {
-  randomNumber: initialRandomNumber,
-  usedRandomNumbers: [initialRandomNumber],
-  sortedList: Array(10).fill(undefined),
-  disabledList: Array(10).fill(false),
-  errors: {},
-  endGameState: "INPROGRESS",
-  score: 0,
+export const initialState = () => {
+  const initialRandomNumber = randomNumberInRange(1, 100);
+  return {
+    randomNumber: initialRandomNumber,
+    usedRandomNumbers: [initialRandomNumber],
+    sortedList: Array(10).fill(undefined),
+    disabledList: Array(10).fill(false),
+    errors: {},
+    endGameState: "INPROGRESS",
+    score: 0,
+  };
 };
 
-const gameStateReducer = (state = initialState, action: any) => {
+const gameStateReducer = (state = initialState(), action: any) => {
   switch (action.type) {
     case SPACE_SELECTED: {
       const spaceIndex = action.payload.spaceIndex;
@@ -57,20 +58,8 @@ const gameStateReducer = (state = initialState, action: any) => {
     }
 
     case RESET_GAME: {
-      const initialRandomNumber = randomNumberInRange(1, 100);
-
-      const newGameState = {
-        randomNumber: initialRandomNumber,
-        usedRandomNumbers: [initialRandomNumber],
-        sortedList: Array(10).fill(undefined),
-        disabledList: Array(10).fill(false),
-        errors: {},
-        endGameState: "INPROGRESS",
-        score: 0,
-      };
-
       return {
-        ...newGameState,
+        ...initialState(),
       };
     }
 

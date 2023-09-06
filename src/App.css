@@ -42,8 +42,6 @@
 }
 
 .floating-points {
-  left: 50%;
-  transform: translateX(-50%);
   border-radius: 5px;
   padding: 5px 10px;
   opacity: 1;
@@ -52,34 +50,34 @@
 
 .floating-points.positive {
   color: green;
-  animation: floatUp 2s forwards;
-  top: 0;
+  animation: floatRight 2s forwards;
+  right: 0;
 }
 
 .floating-points.negative {
   color: red;
-  animation: floatDown 2s forwards;
-  bottom: 0;
+  animation: floatLeft 2s forwards;
+  left: 0;               /* Set to float left */
 }
 
-@keyframes floatUp {
+@keyframes floatRight {
   0% {
-    top: 0;
+    right: 0;
     opacity: 1;
   }
   100% {
-    top: -50px;
+    right: -25px;
     opacity: 0;
   }
 }
 
-@keyframes floatDown {
+@keyframes floatLeft {
   0% {
-    bottom: 0;
+    left: 0;
     opacity: 1;
   }
   100% {
-    bottom: -50px;
+    left: -25px;
     opacity: 0;
   }
 }
