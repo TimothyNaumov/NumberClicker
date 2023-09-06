@@ -4,6 +4,7 @@ import { database } from "../Firebase";
 import { ref, onValue, off } from "firebase/database";
 import React from "react";
 import "../App.css";
+import { withUID } from "../hoc/withUID";
 
 function UserScore({ score, deltaScore, ...props }: any) {
   console.log("score, deltaScore", score, deltaScore);
@@ -46,11 +47,7 @@ const Resolver = (props: any) => {
   const [deltaScore, setDeltaScore] = React.useState(null) as any;
 
   useEffect(() => {
-    const uid = localStorage.getItem("user_uid");
-    if (!uid) {
-      console.log("ERROR: Invalid UID - score not logged");
-      return;
-    }
+    const { uid } = props;
 
     const db = database;
     const pointsRef = ref(db, `users/${uid}/stats/points`);
@@ -81,4 +78,6 @@ const Resolver = (props: any) => {
   return <UserScore score={score} deltaScore={deltaScore} {...props} />;
 };
 
-export default Resolver;
+const UIDAwareResolver = withUID(Resolver);
+
+export default UIDAwareResolver;

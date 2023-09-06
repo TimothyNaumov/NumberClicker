@@ -92,7 +92,7 @@ const Resolver = () => {
   }, [uid]);
 
   if (!stats || error || !stats.frequencyDistribution) {
-    return <StatsView average={0} gamesPlayed={0} />;
+    return <StatsView average={0} gamesPlayed={0} winRate={0} />;
   }
 
   return (
